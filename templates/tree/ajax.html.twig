@@ -1,0 +1,10 @@
+{% for node in nodes %}
+    <div class="card" id="card-{{node['id']}}">
+        <div class="card-header" id="heading-{{node['id']}}">
+            <a class="new" data-toggle="collapse" aria-expanded="false" href="#collapse-{{node['id']}}"
+               aria-controls="collapse-{{node['id']}}" data-node-id="{{node['id']}}">
+                <h2>{{ node['title'] }}</h2>
+            </a>
+        </div>
+    </div>
+{% endfor %}
