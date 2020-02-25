@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Tree as TreeEntity;
+use App\Repository\TreeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TreeController extends AbstractController
@@ -12,9 +13,8 @@ class TreeController extends AbstractController
     /**
      * @Route("/tree/index", name="tree")
      */
-    public function index()
+    public function index(TreeRepository $repo): Response
     {
-        $repo = $this->getDoctrine()->getManager()->getRepository(TreeEntity::class);
         $arrayTree = $repo->childrenHierarchy(
             null, /* starting from root nodes */
             false, /* true: load all children, false: only direct */
@@ -23,7 +23,7 @@ class TreeController extends AbstractController
                 'representationField' => 'slug',
                 'html' => true
             ));
-        dump($arrayTree);
+        
         return $this->render('tree/index.html.twig', [
             'arrayTree' => $arrayTree,
         ]);
@@ -32,7 +32,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/tree/ajax", name="tree-ajax")
      */
-    public function ajax()
+    public function ajax(): JsonResponse
     {
         return new JsonResponse(['data' => []]);
     }
