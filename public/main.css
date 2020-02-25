@@ -1,0 +1,30 @@
+.card a {
+    display: block;
+    position: relative;
+}
+.card a h2:after {
+    content: "\f078"; /* fa-chevron-down */
+    font-family: 'FontAwesome';
+    position: absolute;
+    right: 0;
+}
+.card a[aria-expanded="true"] h2:after {
+    content: "\f077"; /* fa-chevron-up */
+}
+.card .inprogress {
+    background:  linear-gradient(-65deg, rgba(169,3,41,0.48) 0%, rgba(231,60,125,0.65) 33%, rgba(35,166,213,0.83) 67%, rgba(35,213,171,1) 100%);
+    background-size: 400% 400%;
+    position: relative;
+    animation: change-bg .5s ease-in-out infinite;
+}
+@keyframes change-bg {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
