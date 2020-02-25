@@ -12,6 +12,7 @@ class AppFixtures extends Fixture
     private TreeRepository $treeRepo;
     private ObjectManager $manager;
     private const MAX_LEVEL = 3;
+    private const TITLE = 'Tree Node';
 
     public function load(ObjectManager $manager)
     {
@@ -36,8 +37,8 @@ class AppFixtures extends Fixture
             return;
         }
 
-        $nodesCount = $isFirst ? 3 : rand(0, 3);
-        for ($i = 0; $i <= $nodesCount; $i++) {
+        $nodesCount = $isFirst ? 3 : rand(0, 5);
+        for ($i = 0; $i < $nodesCount; $i++) {
             $node = new TreeEntity();
             $node->setTitle($this->getTitleByLevelAndPosition($curLevel, $i));
             $node->setParent($parent);
@@ -50,10 +51,10 @@ class AppFixtures extends Fixture
 
     private function getTitleByLevelAndPosition($level, $position)
     {
-        $result = 'Title of node';
+        $result = self::TITLE;
         for ($i = 0; $i < $level; $i++) {
-            $result .= "_$i";
+            $result .= " > $i";
         }
-        return $result .= "_$position";
+        return $result .= " - $position";
     }
 }
