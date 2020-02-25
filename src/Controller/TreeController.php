@@ -20,13 +20,11 @@ class TreeController extends AbstractController
      */
     public function index(): Response
     {
-        $repo = $this->getTreeRepo();
-
         $options = array(
             'decorate' => true,
             'html' => true
         );
-        $arrayTree = $repo->childrenHierarchy(null, false, $options);
+        $arrayTree = $this->getTreeRepo()->childrenHierarchy(null, false, $options);
         
         return $this->render('tree/index.html.twig', [
             'arrayTree' => $arrayTree,
@@ -34,11 +32,14 @@ class TreeController extends AbstractController
     }
 
     /**
-     * @Route("/ajax", name="tree_ajax")
+     * @Route("/ajax/{id}", name="tree_ajax")
      */
-    public function ajax(): JsonResponse
+    public function ajax($id): Response
     {
-        return new JsonResponse(['data' => []]);
+        $childs = $this->getTreeRepo()->getArrayOfChildsById($id);
+        return $this->render('tree/ajax.html.twig', [
+            'nodes' => $childs,
+        ]);
     }
 
     private function getTreeRepo(): TreeRepository
