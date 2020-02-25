@@ -24,7 +24,6 @@ class TreeController extends AbstractController
 
         $options = array(
             'decorate' => true,
-            'representationField' => 'slug',
             'html' => true
         );
         $arrayTree = $repo->childrenHierarchy(null, false, $options);
